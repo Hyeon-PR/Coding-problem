@@ -18,7 +18,7 @@ long long init(int node, int start, int end)
 }
 
 long long multiply(int node, int start, int end, int left, int right)
-{ // 구간 합 구하기
+{ // 구간 곱 구하기
     if (left > end || right < start)
         return 1;
     if (left <= start && end <= right)

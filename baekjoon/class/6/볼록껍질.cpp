@@ -4,15 +4,17 @@
 using namespace std;
 
 /*
-Graham Scan 알고리즘
-- 볼록 껍질을 구하는 알고리즘 중 하나
-- 시계 방향으로 정렬된 점들을 순회하면서 볼록 껍질을 구함
+Andrew's Monotone Chain 알고리즘
+- 볼록 껍질을 구하는 알고리즘 중 하나 (O(N log N))
+- Graham Scan과 달리 기준점 각도 정렬 없이 좌표 정렬만 사용
 - 볼록 껍질: 점들을 모두 포함하는 가장 작은 볼록 다각형
 - 볼록 다각형: 모든 내각이 180도 미만인 다각형
 
-1. 가장 아래에 있는 점을 찾음
-2. 이 점을 기준으로 시계 방향으로 정렬
-3. 시계 방향으로 정렬된 점들을 순회하면서 볼록 껍질을 구함
+1. 점들을 x좌표, x좌표가 같으면 y좌표 오름차순으로 정렬
+2. 왼쪽에서 오른쪽으로 순회하며 아래 껍질을 구함
+3. 오른쪽에서 왼쪽으로 순회하며 위 껍질을 구함
+4. 마지막 두 점과 새 점이 반시계 방향(외적 > 0)이 아니면 마지막 점을 pop
+   -> 일직선 위의 점(외적 == 0)도 빠지므로 변 위의 점은 양 끝만 남음
 */
 
 struct Point
@@ -36,7 +38,7 @@ vector<Point> convexHull(vector<Point> &points)
         return points;
     vector<Point> hull(2 * n);
 
-    // 반시계 방향으로 정렬
+    // x좌표, x좌표가 같으면 y좌표 오름차순으로 정렬
     sort(points.begin(), points.end());
 
     // Build lower hull

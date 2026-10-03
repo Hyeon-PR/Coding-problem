@@ -17,7 +17,7 @@ long long binomial_coefficient(int n, int r)
 }
 
 long long modpow(long long base, long long exp)
-{ // 분할정복을 이용한 거듭제곱 -> 나머지가 0이 될 때까지 자기 자신을 곱함
+{ // 분할정복을 이용한 거듭제곱 -> 지수를 절반씩 줄이며 밑을 제곱함 (O(log exp))
     long long result = 1;
     while (exp > 0)
     {
@@ -29,10 +29,10 @@ long long modpow(long long base, long long exp)
     return result;
 }
 
-// fact[n]^(MOD-2) % MOD = (fact[n]^(MOD-2) * fact[n]) % MOD
-// fact[n]^(MOD-1) % MOD = 1
-// fact[n]^(MOD-2) % MOD = (fact[n]^(MOD-1) * fact[n]) % MOD
-// fact[n]^(MOD-2) % MOD = 1 / fact[n] % MOD
+// 페르마의 소정리: MOD가 소수이고 a가 MOD의 배수가 아니면 a^(MOD-1) ≡ 1 (mod MOD)
+// 양변에 a^(-1)을 곱하면 a^(MOD-2) ≡ a^(-1) (mod MOD)
+// n < MOD이므로 n!은 MOD의 배수가 아님 -> (n!)^(-1) ≡ fact[n]^(MOD-2) (mod MOD)
+// (i!)^(-1) = ((i+1)!)^(-1) * (i+1) 이므로 inv_fact는 끝 값 하나만 거듭제곱으로 구하고 역순으로 채움
 void precompute_factorials()
 {
     fact[0] = 1;
