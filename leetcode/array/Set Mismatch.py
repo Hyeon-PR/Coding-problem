@@ -3,7 +3,7 @@ from typing import List
 
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        num_d = {i: 0 for i in range(1, len(nums))}
+        num_d = {i: 0 for i in range(1, len(nums) + 1)}
         error_num = [0, 0]
         for num in nums:
             num_d[num] += 1
