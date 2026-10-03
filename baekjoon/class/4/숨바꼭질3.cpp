@@ -3,7 +3,7 @@
 using namespace std;
 
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-bool visit[100001];
+bool visited[100001];
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
         int x = pq.top().second;
         pq.pop();
 
-        visit[x] = 1;
+        visited[x] = 1;
 
         if (x == k)
         {
@@ -29,11 +29,11 @@ int main()
             break;
         }
 
-        if (x - 1 >= 0 && !visit[x - 1])
+        if (x - 1 >= 0 && !visited[x - 1])
             pq.push(make_pair(time + 1, x - 1));
-        if (x + 1 <= 100000 && !visit[x + 1])
+        if (x + 1 <= 100000 && !visited[x + 1])
             pq.push(make_pair(time + 1, x + 1));
-        if (x * 2 <= 100000 && !visit[x * 2])
+        if (x * 2 <= 100000 && !visited[x * 2])
             pq.push(make_pair(time, x * 2));
     }
 
